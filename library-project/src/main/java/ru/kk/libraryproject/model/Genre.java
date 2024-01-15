@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -17,4 +19,5 @@ public class Genre {
     private Long id;
     @Column(nullable = false)
     private String name;
+    private Set<Book> books;
 }

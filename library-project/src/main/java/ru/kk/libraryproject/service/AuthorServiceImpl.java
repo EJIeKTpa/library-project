@@ -29,7 +29,7 @@ public class AuthorServiceImpl implements AuthorService {
                         .build())
                 .toList();
 
-        AuthorDto authorDto =AuthorDto.builder()
+        AuthorDto authorDto = AuthorDto.builder()
                 .id(author.getId())
                 .name(author.getName())
                 .surname(author.getSurname())
