@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.kk.libraryproject.dto.BookDto;
 import ru.kk.libraryproject.dto.GenreDto;
+import ru.kk.libraryproject.model.Book;
 import ru.kk.libraryproject.model.Genre;
+import ru.kk.libraryproject.repository.BookRepository;
 import ru.kk.libraryproject.repository.GenreRepository;
 
 import java.util.List;
@@ -13,16 +15,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
+    private final BookRepository bookRepository;
 
     @Override
     public GenreDto getGenreById(Long id) {
         Genre genre = genreRepository.findById(id).orElseThrow();
-        GenreDto genreDto = convertEntityToDto(genre);
+        List<Book> booksByGenre = bookRepository.findAllByGenreId(id);
+        GenreDto genreDto = convertEntityToDto(genre, booksByGenre);
         return genreDto;
     }
 
-    private GenreDto convertEntityToDto(Genre genre) {
-        List<BookDto> bookDtoList = genre.getBooks().stream()
+    private GenreDto convertEntityToDto(Genre genre, List<Book> books) {
+        List<BookDto> bookDtoList = books.stream()
                 .map(book -> BookDto.builder()
                         .genre(book.getGenre().getName())
                         .name(book.getName())
