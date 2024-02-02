@@ -10,6 +10,7 @@ import ru.kk.libraryproject.repository.BookRepository;
 import ru.kk.libraryproject.repository.GenreRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,24 +22,26 @@ public class GenreServiceImpl implements GenreService {
     public GenreDto getGenreById(Long id) {
         Genre genre = genreRepository.findById(id).orElseThrow();
         List<Book> booksByGenre = bookRepository.findAllByGenreId(id);
-        GenreDto genreDto = convertEntityToDto(genre, booksByGenre);
-        return genreDto;
+        return convertEntityToDto(genre, booksByGenre);
     }
 
     private GenreDto convertEntityToDto(Genre genre, List<Book> books) {
         List<BookDto> bookDtoList = books.stream()
-                .map(book -> BookDto.builder()
-                        .genre(book.getGenre().getName())
-                        .name(book.getName())
-                        .id(book.getId())
-                        .build())
-                .toList();
-
-        GenreDto genreDto = GenreDto.builder()
+                .filter(book -> book.getGenre().getId().equals(genre.getId()))
+                .map(this::convertBookToDto)
+                .collect(Collectors.toList());
+        return GenreDto.builder()
                 .id(genre.getId())
                 .name(genre.getName())
                 .books(bookDtoList)
                 .build();
-        return genreDto;
+    }
+
+       private BookDto convertBookToDto (Book book) {
+        return BookDto.builder()
+                .id(book.getId())
+                .name(book.getName())
+                .genre(book.getGenre().getName())
+                .build();
     }
 }
