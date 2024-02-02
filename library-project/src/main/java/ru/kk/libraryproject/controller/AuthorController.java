@@ -3,6 +3,7 @@ package ru.kk.libraryproject.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.kk.libraryproject.dto.AuthorDto;
 import ru.kk.libraryproject.service.AuthorService;
@@ -14,5 +15,13 @@ public class AuthorController {
     @GetMapping("/author/{id}")
     AuthorDto getAuthorById(@PathVariable("id") Long id) {
         return authorService.getAuthorById(id);
+    }
+    @GetMapping("/author") //получить информацию об авторе по его имени и списку книг автора через эндпоинт GET /author?name=ИмяАвтора.
+    AuthorDto getAuthorByName1(@RequestParam(value = "name", required = false) String name) {
+        return authorService.getAuthorByName1(name);
+    }
+    @GetMapping("/author") //получить информацию об авторе по его имени и списку книг автора через эндпоинт GET /author?name=ИмяАвтора.
+    AuthorDto getAuthorByName2(@RequestParam(value = "name", required = false) String name) {
+        return authorService.getAuthorByName2(name);
     }
 }
