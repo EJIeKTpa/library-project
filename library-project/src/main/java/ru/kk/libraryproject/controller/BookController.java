@@ -11,7 +11,7 @@ import ru.kk.libraryproject.service.BookService;
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    @GetMapping("/book") //http://localhost:8080/book/?name=Война%20и%20мир
+    @GetMapping("/book/v1") //http://localhost:8080/book/v1?name=Война%20и%20мир
     BookDto getBookByNameV1(@RequestParam(value = "name", required = false) String name) {
         return bookService.getByNameV1(name);
     }
@@ -23,6 +23,4 @@ public class BookController {
     BookDto getBookByNameV3(@RequestParam(value = "name", required = false) String name) {
         return bookService.getByNameV3(name);
     }
-
-
 }

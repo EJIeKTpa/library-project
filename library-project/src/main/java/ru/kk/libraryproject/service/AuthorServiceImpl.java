@@ -20,11 +20,12 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
 
     @Override
-    public AuthorDto getAuthorById(Long id) {
+    public AuthorDto getAuthorById(Long id) { //http://localhost:8080/author/4
         Author author = authorRepository.findById(id).orElseThrow();
-        AuthorDto authorDto = convertEntityToDto(author);
-        return authorDto;
+        System.out.println("Находим автора по Id" + author);
+        return convertEntityToDto(author);
     }
+
     private AuthorDto convertEntityToDto(Author author) {
         List<BookDto> bookDtoList = author.getBooks().stream()
                 .map(book -> BookDto.builder()
@@ -42,18 +43,21 @@ public class AuthorServiceImpl implements AuthorService {
                 .build();
         return authorDto;
     }
+
     @Override
     public AuthorDto getAuthorByName(String name) {
         Author author = authorRepository.findAuthorByName(name).orElseThrow();
         AuthorDto authorDto = convertEntityToDto(author);
+        System.out.println("Находим автора по имени первый способ" + authorDto);
         return authorDto;
     }
+
     @Override
     public AuthorDto getAuthorByName1(String name) {
         Author author = authorRepository.findAuthorByNameBySql(name).orElseThrow();
-        AuthorDto authorDto = convertEntityToDto(author);
-        return authorDto;
+        return convertEntityToDto(author);
     }
+
     @Override
     public AuthorDto getAuthorByName2(String name) {
         Specification<Author> authorSpecification = Specification.where(new Specification<Author>() {

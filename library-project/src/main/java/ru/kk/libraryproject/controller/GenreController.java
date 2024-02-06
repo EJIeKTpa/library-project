@@ -11,7 +11,7 @@ import ru.kk.libraryproject.service.GenreService;
 @RequiredArgsConstructor
 public class GenreController {
     private final GenreService genreService;
-    @GetMapping("/genre/{id}")
+    @GetMapping("/genre/{id}") // http://localhost:8080/genre/1
     GenreDto getGenreById(@PathVariable("id") Long id) {
         return genreService.getGenreById(id);
     }

@@ -11,13 +11,22 @@ import ru.kk.libraryproject.dto.BookDto;
 import ru.kk.libraryproject.model.Book;
 import ru.kk.libraryproject.repository.BookRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public abstract class BookServiceImpl implements BookService {
+public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
+
+    @Override
+    public List<Book> findAllByGenreId(Long id) {
+        return null;
+    }
+
     @Override
     public BookDto getByNameV1(String name) {
         Book book = bookRepository.findBookByName(name).orElseThrow();
+        System.out.println("поиск книги по имени 1 способ" + book);
         return convertEntityToDto(book);
     }
 
