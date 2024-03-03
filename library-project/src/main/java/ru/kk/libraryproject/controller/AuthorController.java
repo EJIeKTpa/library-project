@@ -16,7 +16,7 @@ public class AuthorController {
     AuthorDto getAuthorById(@PathVariable("id") Long id) {
         return authorService.getAuthorById(id);
     }
-    @GetMapping("/author/v1") //получить инфу об авторе по имени и списку книг через эндпоинт GET /author/v1?name=ИмяАвтора.
+    @GetMapping("/author/v1") //получить инфу об авторе по имени и списку книг через эндпоинт GET /author/v1?name=ИмяАвтора. http://localhost:8080/bauthor/v1?name=Александр
     AuthorDto getAuthorByName(@RequestParam(value = "name", required = false) String name) {
         return authorService.getAuthorByName(name);
     }

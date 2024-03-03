@@ -2,8 +2,10 @@ package ru.kk.libraryproject.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.kk.libraryproject.dto.AuthorDto;
 import ru.kk.libraryproject.dto.BookDto;
 import ru.kk.libraryproject.dto.GenreDto;
+import ru.kk.libraryproject.model.Author;
 import ru.kk.libraryproject.model.Book;
 import ru.kk.libraryproject.model.Genre;
 import ru.kk.libraryproject.repository.BookRepository;
@@ -38,10 +40,21 @@ public class GenreServiceImpl implements GenreService {
     }
 
        private BookDto convertBookToDto (Book book) {
+        List<AuthorDto> authorDtos = book.getAuthors().stream()
+                .map(this::convertAuthorToDto)
+                .toList();
         return BookDto.builder()
                 .id(book.getId())
                 .name(book.getName())
+                .authors(authorDtos)
                 .genre(book.getGenre().getName())
+                .build();
+    }
+    private AuthorDto convertAuthorToDto (Author author) {
+        return AuthorDto.builder()
+                .id(author.getId())
+                .name(author.getName())
+                .surname(author.getSurname())
                 .build();
     }
 }
