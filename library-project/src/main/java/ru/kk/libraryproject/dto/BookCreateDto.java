@@ -4,19 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.kk.libraryproject.model.Author;
-import ru.kk.libraryproject.model.Genre;
 
-import java.util.List;
-import java.util.Set;
-
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
-public class BookDto {
-    private Long id;
+public class BookCreateDto {
     private String name;
     private String genre;
-    private List<AuthorDto> authors;
 }
