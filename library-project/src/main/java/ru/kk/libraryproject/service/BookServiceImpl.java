@@ -12,18 +12,11 @@ import ru.kk.libraryproject.model.Genre;
 import ru.kk.libraryproject.repository.BookRepository;
 import ru.kk.libraryproject.repository.GenreRepository;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final GenreRepository genreRepository;
-
-    @Override
-    public List<Book> findAllByGenreId(Long id) {
-        return null;
-    }
 
     @Override
     public BookDto getBookById(Long id) {
@@ -91,5 +84,9 @@ public class BookServiceImpl implements BookService {
                 .id(book.getId())
                 .genre(book.getGenre().getName())
                 .build();
+    }
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 }
