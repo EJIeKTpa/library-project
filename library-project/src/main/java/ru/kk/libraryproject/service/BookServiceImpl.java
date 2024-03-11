@@ -1,16 +1,12 @@
 package ru.kk.libraryproject.service;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import ru.kk.libraryproject.dto.AuthorDto;
 import ru.kk.libraryproject.dto.BookCreateDto;
 import ru.kk.libraryproject.dto.BookDto;
-import ru.kk.libraryproject.model.Author;
+import ru.kk.libraryproject.dto.BookUpdateDto;
 import ru.kk.libraryproject.model.Book;
 import ru.kk.libraryproject.model.Genre;
 import ru.kk.libraryproject.repository.BookRepository;
@@ -52,12 +48,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getByNameV3(String name) {
-        Specification<Book> bookSpecification = Specification.where(new Specification<Book>() {
-            @Override
-            public Predicate toPredicate(Root<Book> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("name"), name);
-            }
-        });
+        Specification<Book> bookSpecification = Specification.where((Specification<Book>) (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name));
         Book book = bookRepository.findOne(bookSpecification).orElseThrow();
         System.out.println("поиск книги по имени 3 способ" + book);
         return convertEntityToDto(book);
@@ -71,8 +62,23 @@ public class BookServiceImpl implements BookService {
         return bookDto;
     }
 
+    @Override
+    public BookDto updateBook(BookUpdateDto bookUpdateDto) {
+        Book book = bookRepository.findById(bookUpdateDto.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Book not found")
+        );
+        book.setName(bookUpdateDto.getName());
+        Genre genre = genreRepository.findById(bookUpdateDto.getId()).orElseThrow(
+                () -> new EntityNotFoundException("Genre not found")
+        );
+        book.setGenre(genre);
+        Book savedBook = bookRepository.save(book);
+        return convertEntityToDto(savedBook);
+    }
+
+
     private Book convertDtoToEntity(BookCreateDto bookCreateDto) {
-        Genre genre = genreRepository.findById(bookCreateDto.getGenre());
+        Genre genre = genreRepository.findGenreByName(bookCreateDto.getGenre());
         return Book.builder()
                 .name(bookCreateDto.getName())
                 .genre(genre)

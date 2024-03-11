@@ -1,8 +1,8 @@
 package ru.kk.libraryproject.service;
 
-import ru.kk.libraryproject.dto.AuthorDto;
 import ru.kk.libraryproject.dto.BookCreateDto;
 import ru.kk.libraryproject.dto.BookDto;
+import ru.kk.libraryproject.dto.BookUpdateDto;
 import ru.kk.libraryproject.model.Book;
 
 import java.util.List;
@@ -14,6 +14,5 @@ public interface BookService {
     BookDto getByNameV2(String name);
     BookDto getByNameV3(String name);
     BookDto createBook(BookCreateDto bookCreateDto);
-
-
+    BookDto updateBook(BookUpdateDto bookUpdateDto);
 }

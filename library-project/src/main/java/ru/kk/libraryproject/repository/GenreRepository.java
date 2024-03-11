@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 import ru.kk.libraryproject.model.Genre;
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Long> {
+
+    Genre findGenreByName(String genre);
 }

@@ -2,12 +2,9 @@ package ru.kk.libraryproject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.kk.libraryproject.dto.AuthorDto;
-import ru.kk.libraryproject.dto.BookCreateDto;
-import ru.kk.libraryproject.dto.BookDto;
+import ru.kk.libraryproject.dto.*;
 import ru.kk.libraryproject.service.BookService;
 
-import java.awt.print.Book;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +26,12 @@ public class BookController {
     BookDto getBookByNameV3(@RequestParam(value = "name", required = false) String name) {
         return bookService.getByNameV3(name);
     }
-    @PostMapping("book/create")
-    BookDto createBook(@RequestParam BookCreateDto bookCreateDto) {
+    @PostMapping("book/create") //http://localhost:8080/book/create
+    BookDto createBook(@RequestBody BookCreateDto bookCreateDto) {
         return bookService.createBook(bookCreateDto);
+    }
+    @PutMapping("/book/update") //http://localhost:8080/book/update
+    BookDto updateBook(@RequestBody BookUpdateDto bookUpdateDto){
+        return bookService.updateBook(bookUpdateDto);
     }
 }
