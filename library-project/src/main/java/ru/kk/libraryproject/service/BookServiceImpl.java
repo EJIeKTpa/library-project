@@ -61,7 +61,7 @@ public class BookServiceImpl implements BookService {
                 () -> new EntityNotFoundException("Book not found")
         );
         book.setName(bookUpdateDto.getName());
-        Genre genre = genreRepository.findById(bookUpdateDto.getId()).orElseThrow(
+        Genre genre = genreRepository.findGenreByName(bookUpdateDto.getGenre()).orElseThrow(
                 () -> new EntityNotFoundException("Genre not found")
         );
         book.setGenre(genre);
@@ -71,7 +71,9 @@ public class BookServiceImpl implements BookService {
 
 
     private Book convertDtoToEntity(BookCreateDto bookCreateDto) {
-        Genre genre = genreRepository.findGenreByName(bookCreateDto.getGenre());
+        Genre genre = genreRepository.findGenreByName(bookCreateDto.getGenre()).orElseThrow(
+                () -> new EntityNotFoundException("Genre not found")
+        );
         return Book.builder()
                 .name(bookCreateDto.getName())
                 .genre(genre)

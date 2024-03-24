@@ -17,7 +17,7 @@ public class Book {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id")
     private Genre genre;
     @ManyToMany

@@ -19,6 +19,6 @@ public class Genre {
     private Long id;
     @Column(nullable = false)
     private String name;
-    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "genre", fetch = FetchType.LAZY)
     private Set<Book> books;
 }

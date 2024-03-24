@@ -35,7 +35,7 @@ public class AuthorController {
     AuthorDto updateAuthor(@RequestBody AuthorUpdateDto authorUpdateDto){
         return authorService.updateAuthor(authorUpdateDto);
     }
-    @DeleteMapping("/author/delete/{id}")
+    @DeleteMapping("/author/delete/{id}") //http://localhost:8080/author/delete/10
     void deleteAuthor(@PathVariable("id") Long id) {
     authorService.deleteAuthor(id);
     }

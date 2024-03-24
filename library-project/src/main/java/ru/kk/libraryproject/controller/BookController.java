@@ -34,8 +34,8 @@ public class BookController {
     BookDto updateBook(@RequestBody BookUpdateDto bookUpdateDto){
         return bookService.updateBook(bookUpdateDto);
     }
-    @DeleteMapping("/book/delete/{id}")
-    void deleteAuthor(@PathVariable("id") Long id) {
+    @DeleteMapping("/book/delete/{id}") //http://localhost:8080/book/delete/10
+    void deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
     }
 }
