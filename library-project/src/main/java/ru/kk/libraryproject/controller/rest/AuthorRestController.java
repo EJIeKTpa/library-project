@@ -1,4 +1,4 @@
-package ru.kk.libraryproject.controller;
+package ru.kk.libraryproject.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import ru.kk.libraryproject.service.AuthorService;
 
 @RestController
 @RequiredArgsConstructor
-public class AuthorController {
+public class AuthorRestController {
     private final AuthorService authorService;
     @GetMapping("/author/{id}") // http://localhost:8080/author/4
     AuthorDto getAuthorById(@PathVariable("id") Long id) {

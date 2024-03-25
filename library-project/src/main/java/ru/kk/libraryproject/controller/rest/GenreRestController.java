@@ -1,4 +1,4 @@
-package ru.kk.libraryproject.controller;
+package ru.kk.libraryproject.controller.rest;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +9,7 @@ import ru.kk.libraryproject.service.GenreService;
 
 @RestController
 @RequiredArgsConstructor
-public class GenreController {
+public class GenreRestController {
     private final GenreService genreService;
     @GetMapping("/genre/{id}") // http://localhost:8080/genre/1
     GenreDto getGenreById(@PathVariable("id") Long id) {

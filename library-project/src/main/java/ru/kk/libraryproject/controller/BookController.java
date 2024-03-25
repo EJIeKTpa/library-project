@@ -1,41 +1,24 @@
 package ru.kk.libraryproject.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-import ru.kk.libraryproject.dto.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import ru.kk.libraryproject.dto.BookDto;
 import ru.kk.libraryproject.service.BookService;
 
+import java.util.List;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class BookController {
     private final BookService bookService;
-    @GetMapping("/book/{id}") // http://localhost:8080/book/4
-    BookDto getBookById(@PathVariable("id") Long id) {
-        return bookService.getBookById(id);
+
+    @GetMapping("/books") //http://localhost:8080/books
+    String getBooksView(Model model) {
+        List<BookDto> books = bookService.getAllBooks();
+        model.addAttribute("books", books);
+        return "books";
     }
-    @GetMapping("/book/v1") //http://localhost:8080/book/v1?name=Война%20и%20мир
-    BookDto getBookByNameV1(@RequestParam(value = "name", required = false) String name) {
-        return bookService.getByNameV1(name);
-    }
-    @GetMapping("/book/v2") //http://localhost:8080/book/v2?name=Война%20и%20мир
-    BookDto getBookByNameV2(@RequestParam(value = "name", required = false) String name) {
-        return bookService.getByNameV2(name);
-    }
-    @GetMapping("/book/v3") //http://localhost:8080/book/v3?name=Война%20и%20мир
-    BookDto getBookByNameV3(@RequestParam(value = "name", required = false) String name) {
-        return bookService.getByNameV3(name);
-    }
-    @PostMapping("book/create") //http://localhost:8080/book/create
-    BookDto createBook(@RequestBody BookCreateDto bookCreateDto) {
-        return bookService.createBook(bookCreateDto);
-    }
-    @PutMapping("/book/update") //http://localhost:8080/book/update
-    BookDto updateBook(@RequestBody BookUpdateDto bookUpdateDto){
-        return bookService.updateBook(bookUpdateDto);
-    }
-    @DeleteMapping("/book/delete/{id}") //http://localhost:8080/book/delete/10
-    void deleteBook(@PathVariable("id") Long id) {
-        bookService.deleteBook(id);
-    }
+
 }

@@ -4,6 +4,8 @@ import ru.kk.libraryproject.dto.BookCreateDto;
 import ru.kk.libraryproject.dto.BookDto;
 import ru.kk.libraryproject.dto.BookUpdateDto;
 
+import java.util.List;
+
 public interface BookService {
 
     BookDto getBookById(Long id);
@@ -13,4 +15,5 @@ public interface BookService {
     BookDto createBook(BookCreateDto bookCreateDto);
     BookDto updateBook(BookUpdateDto bookUpdateDto);
     void deleteBook(Long Id);
+    List<BookDto> getAllBooks();
 }
