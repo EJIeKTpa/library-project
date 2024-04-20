@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<div style="color: red" th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div style="color: darkblue" th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="/login" method="post">
-    <div>
-        <label for="username">Username:
-        <input id="username" type="text" name="username"/>
-    </label><br>
-        <label for="password">Password:
-            <input id="password" type="password" name="password"/>
-        </label><br>
-        <button type="submit"> Login</button>
-    </div>
-</form>
-<form action="/users/registration">
-    <div><button type="submit"> Registration<button</div>
-</form>
-</body>
-</html>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="https://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Login</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div style="color: red" th:if="${param.error}">-->
+<!--    Invalid username and password.-->
+<!--</div>-->
+<!--<div style="color: darkblue" th:if="${param.logout}">-->
+<!--    You have been logged out.-->
+<!--</div>-->
+<!--<form th:action="/login" method="post">-->
+<!--    <div>-->
+<!--        <label for="username">Username:-->
+<!--        <input id="username" type="text" name="username"/>-->
+<!--    </label><br>-->
+<!--        <label for="password">Password:-->
+<!--            <input id="password" type="password" name="password"/>-->
+<!--        </label><br>-->
+<!--        <button type="submit"> Login</button>-->
+<!--    </div>-->
+<!--</form>-->
+<!--<form action="/users/registration">-->
+<!--    <div><button type="submit"> Registration<button</div>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->

@@ -15,6 +15,7 @@ import ru.kk.libraryproject.model.Author;
 import ru.kk.libraryproject.repository.AuthorRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,12 +66,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDto getAuthorByName2(String name) {
-        Specification<Author> authorSpecification = Specification.where(new Specification<Author>() {
-            @Override
-            public Predicate toPredicate(Root<Author> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                return criteriaBuilder.equal(root.get("name"), name);
-            }
-        });
+        Specification<Author> authorSpecification = Specification.where((Specification<Author>) (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("name"), name));
         Author author = authorRepository.findOne(authorSpecification).orElseThrow();
         return convertEntityToDto(author);
     }
@@ -98,10 +94,23 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.deleteById(id);
     }
 
+    @Override
+    public List<AuthorDto> getAllAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        return authors.stream().map(this::convertEntityToDto1).collect(Collectors.toList());
+    }
+
     private Author convertDtoToEntity(AuthorCreateDto authorCreateDto) {
         return Author.builder()
                 .name(authorCreateDto.getName())
                 .surname(authorCreateDto.getSurname())
+                .build();
+    }
+    private AuthorDto convertEntityToDto1(Author author) {
+        return AuthorDto.builder()
+                .id(author.getId())
+                .name(author.getName())
+                .surname(author.getSurname())
                 .build();
     }
 }
