@@ -1,10 +1,15 @@
 package ru.kk.libraryproject.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Set;
 import java.util.UUID;
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
 @Entity
 @Table(name = "user")
 public class User {
@@ -23,5 +28,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(), this.password);
+    }
 
 }
