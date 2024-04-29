@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "user_roles")
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +19,7 @@ public class Role {
     private String name;
     public enum Values {
         ADMIN(1L),
-        USER(2L),
-        MANAGER(3L);
+        USER(2L);
         long roleId;
         Values(long roleId) {
             this.roleId = roleId;
