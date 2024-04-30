@@ -2,6 +2,8 @@ package ru.kk.libraryproject.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.kk.libraryproject.dto.LoginRequest;
 
 import java.util.Set;
 import java.util.UUID;
