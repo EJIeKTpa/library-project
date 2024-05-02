@@ -1,9 +1,9 @@
 package ru.kk.libraryproject.config;
 
-import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kk.libraryproject.entity.Role;
 import ru.kk.libraryproject.entity.User;
 import ru.kk.libraryproject.repository.RoleRepository;
@@ -32,7 +32,7 @@ public class AdminUserConfig implements CommandLineRunner {
 
         var roleAdmin = roleRepository.findByName(Role.Values.ADMIN.name());
 
-        var userAdmin = userRepository.findByLogin("admin");
+        var userAdmin = userRepository.findByUsername("admin");
 
         userAdmin.ifPresentOrElse(
                 user -> {
@@ -40,7 +40,7 @@ public class AdminUserConfig implements CommandLineRunner {
                 },
                 () -> {
                     var user = new User();
-                    user.setLogin("admin");
+                    user.setUsername("admin");
                     user.setPassword(passwordEncoder.encode("123"));
                     user.setRoles(Set.of(roleAdmin));
                     userRepository.save(user);

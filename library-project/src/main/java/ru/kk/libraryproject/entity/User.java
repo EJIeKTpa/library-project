@@ -22,7 +22,7 @@ public class User {
     private UUID userId;
     private String email;
     @Column(unique = true)
-    private String login; //username
+    private String username; //username
     private String password;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
